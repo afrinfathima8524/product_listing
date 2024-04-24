@@ -45,11 +45,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(ProductFavroitedActionState());
   }
 
-  FutureOr<void> cartButtonClickedEvent(
-      CartButtonClickedEvent event, Emitter<HomeState> emit) {
-        if(!cartItems.contains(event.clickedProduct)){
-          cartItems.add(event.clickedProduct);
-        }
-    emit(ProductCartedActionState());
+ FutureOr<void> cartButtonClickedEvent(
+    CartButtonClickedEvent event, Emitter<HomeState> emit) {
+  if (cartItems.any((item) => item.id == event.clickedProduct.id)) {
+    final existingProduct =
+        cartItems.firstWhere((item) => item.id == event.clickedProduct.id);
+    existingProduct.quantity += 1;
+  } else {
+    final newProduct = event.clickedProduct.copyWith(quantity: 1);
+    cartItems.add(newProduct);
   }
+  emit(ProductCartedActionState());
+}
 }

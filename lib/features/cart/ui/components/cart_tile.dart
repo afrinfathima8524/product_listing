@@ -87,16 +87,16 @@ class _CartTileState extends State<CartTile> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Container(
-                      //   decoration: BoxDecoration(color: Colors.grey[300],borderRadius: BorderRadius.circular(10)),
-                      //   child:Row(
-                      //     children: [
-                      //       IconButton(onPressed: (){}, icon: Icon(Icons.add)),
-                      //       Text("1"),
-                      //       IconButton(onPressed: (){}, icon: Icon(Icons.remove)),
-                      //     ],
-                      //   ),
-                      // ),
+                      Container(
+                        decoration: BoxDecoration(color: Colors.grey[300],borderRadius: BorderRadius.circular(10)),
+                        child:Row(
+                          children: [
+                            IconButton(onPressed: (){}, icon: Icon(Icons.add)),
+                            Text("${widget.productsData.quantity}"),
+                            IconButton(onPressed: (){}, icon: Icon(Icons.remove)),
+                          ],
+                        ),
+                      ),
                       SizedBox(height: 15,),
                       IconButton(
                         onPressed: () {

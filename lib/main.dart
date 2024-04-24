@@ -15,3 +15,5 @@ class Myapp extends StatelessWidget {
     );
   }
 }
+
+// i stopped after adding the quantity i need to do plus and minus quantity 
