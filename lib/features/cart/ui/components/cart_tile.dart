@@ -16,6 +16,7 @@ class CartTile extends StatefulWidget {
 class _CartTileState extends State<CartTile> {
   @override
   Widget build(BuildContext context) {
+    double totalPrice = widget.productsData.quantity * double.parse(widget.productsData.offerPrice ?? '0');
     return Column(
       children: [
         Container(
@@ -51,7 +52,7 @@ class _CartTileState extends State<CartTile> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
@@ -63,7 +64,7 @@ class _CartTileState extends State<CartTile> {
                             style: const TextStyle(
                                 decoration: TextDecoration.lineThrough),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Column(
@@ -74,12 +75,12 @@ class _CartTileState extends State<CartTile> {
                                 style: GoogleFonts.dmSerifDisplay(
                                     fontSize: 15, color: Colors.green),
                               ),
-                              Text('\$${widget.productsData.offerPrice}'),
+                              Text('\$${totalPrice.toStringAsFixed(2)}'),
                             ],
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                     ],
@@ -88,21 +89,43 @@ class _CartTileState extends State<CartTile> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        decoration: BoxDecoration(color: Colors.grey[300],borderRadius: BorderRadius.circular(10)),
-                        child:Row(
+                        decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
                           children: [
-                            IconButton(onPressed: (){}, icon: Icon(Icons.add)),
+                            IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (widget.productsData.quantity > 1) {
+                                      widget.productsData.quantity--;
+                                    }
+                                  });
+                                },
+                                icon: const Icon(Icons.remove)),
                             Text("${widget.productsData.quantity}"),
-                            IconButton(onPressed: (){}, icon: Icon(Icons.remove)),
+                            IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    widget.productsData.quantity++;
+                                  });
+                                },
+                                icon: const Icon(Icons.add)),
                           ],
                         ),
                       ),
-                      SizedBox(height: 15,),
+                      const SizedBox(
+                        height: 15,
+                      ),
                       IconButton(
                         onPressed: () {
-                          widget.cartBloc.add(CartRemoveEvent(productsData: widget.productsData));
+                          widget.cartBloc.add(CartRemoveEvent(
+                              productsData: widget.productsData));
                         },
-                        icon: const Icon(Icons.shopping_cart,size: 30,),
+                        icon: const Icon(
+                          Icons.shopping_cart,
+                          size: 30,
+                        ),
                         color: Colors.pink,
                       ),
                     ],

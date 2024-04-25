@@ -11,8 +11,11 @@ class CartSucessState extends CartState{
   CartSucessState({required this.cartItems});
 }
 class CartItemRemovedActionState extends CartActionState{}
-class CartIncrementState extends CartActionState{}
-class CartDecrementState extends CartActionState{}
+// class CartIncrementState extends CartActionState{}
+// class CartDecrementState extends CartActionState{}
+// class CartTotalState extends CartState{
+//   CartTotalState(double totalPrice);
+// }
 
 // class CartCountState extends CartState{
 //   final int count;

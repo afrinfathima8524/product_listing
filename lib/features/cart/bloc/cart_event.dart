@@ -10,14 +10,16 @@ class CartRemoveEvent extends CartEvent{
  CartRemoveEvent({required this.productsData});
 }
 
-class QunatityIncrement extends CartEvent{
-   final int quantityCount;
-  QunatityIncrement({required this.quantityCount});
-}
-class QunatityDecrement extends CartEvent{
-    final int quantityCount;
-  QunatityDecrement({required this.quantityCount});
-}
+// class CartTotal extends CartEvent{}
+
+// class QunatityIncrement extends CartEvent{
+//    final int quantityCount;
+//   QunatityIncrement({required this.quantityCount});
+// }
+// class QunatityDecrement extends CartEvent{
+//     final int quantityCount;
+//   QunatityDecrement({required this.quantityCount});
+// }
 
 // class CartCountEvent extends CartEvent{}
 

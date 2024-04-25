@@ -12,6 +12,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(CartInitial()) {
     on<CartInitialEvent>(cartInitialEvent);
     on<CartRemoveEvent>(cartRemoveEvent);
+    // on<CartTotal>(cartTotal);
   }
   FutureOr<void> cartInitialEvent(
       CartInitialEvent event, Emitter<CartState> emit) {
@@ -76,3 +77,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   //     QunatityDecrement event, Emitter<CartState> emit) {
   //           emit(state.copyWith(count: state.count--));
   //     }
+  
+  // FutureOr<void> cartTotal(event, Emitter<CartState> emit) {
+  //   var productsData=ProductsData();
+  //   final offerPrice=double.parse(productsData.offerPrice ?? '0');
+  //   var totalPrice=productsData.quantity * offerPrice;
+  //   emit(CartTotalState(totalPrice));
+  // }
