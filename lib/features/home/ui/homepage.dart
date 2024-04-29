@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_listing_using_bloc/features/cart/ui/product_cart.dart';
+import 'package:product_listing_using_bloc/features/details_page/ui/details_page.dart';
 import 'package:product_listing_using_bloc/features/fav/ui/product_fav.dart';
 import 'package:product_listing_using_bloc/features/home/bloc/home_bloc.dart';
 import 'package:product_listing_using_bloc/features/home/ui/components/product_tile.dart';
@@ -52,6 +53,10 @@ class _HomePageState extends State<HomePage> {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const FavPage()));
           }
+          else if (state is ProductNavigateToDetailsPage) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const DetailsPage()));
+          }
           //  else if (state is ProductCartedActionState) {
           //   ScaffoldMessenger.of(context)
           //       .showSnackBar(SnackBar(content: Text("Product Carted")));
@@ -71,20 +76,27 @@ class _HomePageState extends State<HomePage> {
               );
             case ProductFetchSucessState:
               final successState = state as ProductFetchSucessState;
-              return Scaffold(
-                body: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+              return LayoutBuilder(builder: (context, constraints) {
+                return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: constraints.maxWidth > 760 ? 4 :2,
+                    childAspectRatio: 1
                   ),
                   itemCount: successState.products.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return ProductTile(
-                      productsData: successState.products[index],
-                      homeBloc: homeBloc,
+                    var clickedProduct=successState.products[index];
+                    return GestureDetector(
+                      onTap: () {
+                        homeBloc.add(ProductNavigateToDetailsPageEvent(clickedProduct: clickedProduct));
+                      },
+                      child: ProductTile(
+                        productsData: clickedProduct,
+                        homeBloc: homeBloc,
+                      ),
                     );
                   },
-                ),
-              );
+                );
+              },);
             default:
               return Container();
           }

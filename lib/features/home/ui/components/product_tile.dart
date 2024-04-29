@@ -65,6 +65,12 @@ class _ProductTileState extends State<ProductTile> {
                       onPressed: () {
                         widget.homeBloc.add(CartButtonClickedEvent(
                             clickedProduct: widget.productsData));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          duration: const Duration(seconds: 1),
+                          backgroundColor: Colors.pink[400],
+                          content: Text(
+                              "${widget.productsData.name} added to the cart"),
+                        ));
                       },
                       color: Colors.pink.shade400,
                       child: const Text(

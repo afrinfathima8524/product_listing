@@ -77,7 +77,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   //     QunatityDecrement event, Emitter<CartState> emit) {
   //           emit(state.copyWith(count: state.count--));
   //     }
-  
+
   // FutureOr<void> cartTotal(event, Emitter<CartState> emit) {
   //   var productsData=ProductsData();
   //   final offerPrice=double.parse(productsData.offerPrice ?? '0');

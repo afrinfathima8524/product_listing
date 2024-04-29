@@ -12,6 +12,8 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     on<ProductInitialFetchEvent>(productInitialFetchEvent);
+    // on<DetailsPageClickedEvent>(detailsPageClickedEvent);
+    on<ProductNavigateToDetailsPageEvent>(productNavigateToDetailsPageEvent);
     on<FavPageNavigateEvent>(favPageNavigateEvent);
     on<CartPageNavigateEvent>(cartPageNavigateEvent);
     on<FavButtonClickedEvent>(favButtonClickedEvent);
@@ -21,7 +23,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<FutureOr<void>> productInitialFetchEvent(
       ProductInitialFetchEvent event, Emitter<HomeState> emit) async {
     emit(ProductLoadingState());
-    List<ProductsData> products = await productRepo.fetchProduct();
+    List<ProductsData> products = await ProductRepo.fetchProduct();
     emit(ProductFetchSucessState(products: products));
   }
 
@@ -39,22 +41,33 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       FavButtonClickedEvent event, Emitter<HomeState> emit) {
     if (!favItems.contains(event.clickedProduct)) {
       favItems.add(event.clickedProduct);
-    }else{
+    } else {
       favItems.remove(event.clickedProduct);
     }
     emit(ProductFavroitedActionState());
   }
 
- FutureOr<void> cartButtonClickedEvent(
-    CartButtonClickedEvent event, Emitter<HomeState> emit) {
-  if (cartItems.any((item) => item.id == event.clickedProduct.id)) {
-    final existingProduct =
-        cartItems.firstWhere((item) => item.id == event.clickedProduct.id);
-    existingProduct.quantity += 1;
-  } else {
-    final newProduct = event.clickedProduct.copyWith(quantity: 1);
-    cartItems.add(newProduct);
+  FutureOr<void> cartButtonClickedEvent(
+      CartButtonClickedEvent event, Emitter<HomeState> emit) {
+    if (cartItems.any((item) => item.id == event.clickedProduct.id)) {
+      final existingProduct =
+          cartItems.firstWhere((item) => item.id == event.clickedProduct.id);
+      existingProduct.quantity += 1;
+    } else {
+      final newProduct = event.clickedProduct.copyWith(quantity: 1);
+      cartItems.add(newProduct);
+    }
+    emit(ProductCartedActionState());
   }
-  emit(ProductCartedActionState());
-}
+
+  // FutureOr<void> detailsPageClickedEvent(
+  //     DetailsPageClickedEvent event, Emitter<HomeState> emit) {
+  //       products.add(event.clickedProduct);
+  //       emit(ProductNavigateToDetailsPage());
+  //     }
+
+  FutureOr<void> productNavigateToDetailsPageEvent(
+      ProductNavigateToDetailsPageEvent event, Emitter<HomeState> emit) {
+    emit(ProductNavigateToDetailsPage());
+  }
 }

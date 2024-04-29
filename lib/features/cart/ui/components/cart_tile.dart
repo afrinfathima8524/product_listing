@@ -47,7 +47,7 @@ class _CartTileState extends State<CartTile> {
                                 fontSize: 18, color: Colors.grey[500]),
                           ),
                           Text(
-                            '${widget.productsData.category.toString()}',
+                            '${widget.productsData.category}',
                             style: GoogleFonts.inter(color: Colors.grey[500]),
                           ),
                         ],

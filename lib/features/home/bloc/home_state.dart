@@ -14,6 +14,7 @@ class ProductFetchSucessState extends HomeState{
 }
 class ProductNavigateToCartPage extends HomeActionState{}
 class ProductNavigateToFavPage extends HomeActionState{}
+class ProductNavigateToDetailsPage extends HomeActionState{}
 
 class ProductCartedActionState extends HomeActionState{}
 class ProductFavroitedActionState extends HomeActionState{}
